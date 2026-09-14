@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PMN Week 35 WordPress preview</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,700;1,400&display=swap");
+
+/* Physical Music News — blog post styles */
+.pmn {
+  --pmn-ink: #1E1F25;
+  --pmn-ink-2: #48494E;
+  --pmn-ink-3: #5E5E63;
+  --pmn-rule: #D1CAB9;
+  --pmn-panel: #F0E8D3;
+  --pmn-blue: #387A91;
+  --pmn-blue-ink: #2B6275;
+  --pmn-yellow: #FFCC18;
+  color: var(--pmn-ink);
+  font-family: "Aktiv Grotesk", "Hanken Grotesk", Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 760px;
+}
+.pmn * { box-sizing: border-box; }
+.pmn p { margin: 0 0 1em; }
+.pmn h2 {
+  font-size: 1.625rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin: 2.4em 0 .6em;
+  color: var(--pmn-ink);
+}
+.pmn h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 .4em;
+  color: var(--pmn-ink);
+}
+.pmn .pmn-eyebrow {
+  display: block;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--pmn-blue-ink);
+  margin: 2.8em 0 -1.6em;
+}
+.pmn .pmn-eyebrow + h2 { margin-top: 2em; }
+.pmn .pmn-num {
+  font-family: "FK Screamer", "Anton", Impact, "Arial Narrow", sans-serif;
+  font-weight: 400;
+  letter-spacing: .01em;
+  line-height: 1;
+}
+.pmn .pmn-dek { font-size: 1.1875rem; line-height: 1.5; color: var(--pmn-ink-2); }
+.pmn .pmn-meta { font-size: .875rem; color: var(--pmn-ink-3); }
+
+/* key numbers */
+.pmn .pmn-keys {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 2px solid var(--pmn-ink);
+  border-bottom: 1px solid var(--pmn-rule);
+  margin: 1.6em 0 2em;
+}
+.pmn .pmn-key { padding: 14px 14px 14px 0; display: grid; gap: 4px; align-content: start; }
+.pmn .pmn-key + .pmn-key { padding-left: 14px; border-left: 1px solid var(--pmn-rule); }
+.pmn .pmn-key .pmn-num { font-size: 2.5rem; }
+.pmn .pmn-key small { font-size: .8125rem; color: var(--pmn-ink-3); font-weight: 500; }
+.pmn .pmn-key b { font-size: .8125rem; font-variant-numeric: tabular-nums; }
+
+/* No. 1 cards */
+.pmn .pmn-ones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 1em 0 1.6em;
+}
+.pmn .pmn-one { background: var(--pmn-panel); padding: 18px 20px 20px; border-radius: 2px; }
+.pmn .pmn-one .pmn-where {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--pmn-ink-2);
+  margin: 0 0 10px;
+}
+.pmn .pmn-one .pmn-title { font-size: 1.375rem; font-weight: 700; line-height: 1.2; margin: 0; }
+.pmn .pmn-one .pmn-by { color: var(--pmn-ink-2); margin: 2px 0 12px; }
+.pmn .pmn-one dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  border-top: 1px solid var(--pmn-rule);
+  padding-top: 12px;
+}
+.pmn .pmn-one dt { font-size: .75rem; color: var(--pmn-ink-3); }
+.pmn .pmn-one dd {
+  margin: 2px 0 0;
+  font-family: "FK Screamer", "Anton", Impact, "Arial Narrow", sans-serif;
+  font-size: 1.625rem;
+  line-height: 1.05;
+}
+
+/* figures & charts */
+.pmn figure.pmn-fig { margin: 1.6em 0 2em; padding: 0; }
+.pmn .chart-wrapper { background: #fff; border: 1px solid var(--pmn-rule); border-radius: 4px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+.pmn figure.pmn-fig figcaption { font-size: .8125rem; color: var(--pmn-ink-3); margin-top: 12px; line-height: 1.5; }
+
+/* chart tables */
+.pmn .pmn-tables {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 32px;
+  margin: 1em 0;
+}
+.pmn table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: .875rem;
+  margin: 0;
+}
+.pmn table caption { text-align: left; font-weight: 700; font-size: .9375rem; padding-bottom: 6px; color: var(--pmn-ink); }
+.pmn th {
+  font-size: .625rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--pmn-ink-3);
+  text-align: left;
+  padding: 0 8px 6px 0;
+  border-bottom: 1px solid var(--pmn-ink);
+  vertical-align: bottom;
+  background: none;
+}
+.pmn td {
+  padding: 6px 8px 6px 0;
+  border-bottom: 1px solid var(--pmn-rule);
+  vertical-align: top;
+  background: none;
+}
+.pmn td.pmn-rank {
+  font-family: "FK Screamer", "Anton", Impact, "Arial Narrow", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.1;
+  width: 2rem;
+}
+.pmn tr.pmn-top td.pmn-rank { box-shadow: inset 0 -4px 0 var(--pmn-yellow); }
+.pmn td.pmn-lw { color: var(--pmn-ink-3); font-size: .75rem; width: 2.2rem; padding-top: 9px; }
+.pmn td .pmn-alb { display: block; font-weight: 700; line-height: 1.25; }
+.pmn td .pmn-art { display: block; color: var(--pmn-ink-2); font-size: .8125rem; line-height: 1.25; }
+.pmn .pmn-r { text-align: right; padding-right: 0; }
+.pmn .pmn-note { font-size: .8125rem; color: var(--pmn-ink-3); margin-top: 10px; }
+
+/* by the numbers */
+.pmn .pmn-numbers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 2px solid var(--pmn-ink);
+  margin: 1em 0;
+}
+.pmn .pmn-numbers > div { padding: 18px 20px 18px 0; border-bottom: 1px solid var(--pmn-rule); }
+.pmn .pmn-numbers > div:nth-child(even) { padding-left: 20px; border-left: 1px solid var(--pmn-rule); }
+.pmn .pmn-numbers .pmn-num { display: block; font-size: 2.75rem; margin-bottom: 6px; }
+.pmn .pmn-numbers p { font-size: .9375rem; color: var(--pmn-ink-2); margin: 0; }
+
+/* call to action + source */
+.pmn .pmn-cta {
+  background: var(--pmn-ink);
+  color: #F0E8D3;
+  padding: 28px 28px 30px;
+  margin: 2.6em 0 1.6em;
+  border-radius: 2px;
+}
+.pmn .pmn-cta h2 { color: #F0E8D3; margin: 0 0 .4em; }
+.pmn .pmn-cta p { color: #C8C4B6; }
+.pmn .pmn-cta a.pmn-btn {
+  display: inline-block;
+  background: #59C7EE;
+  color: #101014;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 2px;
+  margin-right: 16px;
+}
+.pmn .pmn-source {
+  font-size: .8125rem;
+  color: var(--pmn-ink-3);
+  border-top: 1px solid var(--pmn-rule);
+  padding-top: 12px;
+}
+
+@media (max-width: 640px) {
+  .pmn .pmn-keys { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pmn .pmn-key:nth-child(3) { padding-left: 0; border-left: 0; }
+  .pmn .pmn-key:nth-child(n+3) { border-top: 1px solid var(--pmn-rule); }
+  .pmn .pmn-ones, .pmn .pmn-tables, .pmn .pmn-numbers { grid-template-columns: 1fr; }
+  .pmn .pmn-numbers > div:nth-child(even) { padding-left: 0; border-left: 0; }
+}
+
+/* Local Preview Environment Styles */
+body { margin: 0; background: #fdfdfd; padding: 40px 20px; }
+.wp-mock { max-width: 760px; margin: 0 auto; }
+.wp-mock .t { font: 700 40px/1.1 Helvetica, Arial, sans-serif; color: #1E1F25; margin: 18px 0; }
+</style>
+</head>
+<body>
+<div class="wp-mock">
+  <h1 class="t">Wildchild leads a 1.6 million-album week as Billy Strings takes indie stores</h1>
+
+  <div class="pmn">
+    <p class="pmn-dek">Physical album sales rose 1.4% over the same week in 2025, powered by CDs and a 12.5% jump at independent record stores. Vinyl slipped 2.4% as direct-to-consumer vinyl cooled.</p>
+    <p class="pmn-meta">By Chris Muratore, Director, Partnerships · Tracking week Aug. 28 – Sept. 3, 2026</p>
+
+    <div class="pmn-keys">
+      <div class="pmn-key"><small>Physical albums sold</small><span class="pmn-num">1.59M</span><b>▲ +1.4% vs 2025</b></div>
+      <div class="pmn-key"><small>Vinyl albums</small><span class="pmn-num">897K</span><b>▼ −2.4% vs 2025</b></div>
+      <div class="pmn-key"><small>CD albums</small><span class="pmn-num">680K</span><b>▲ +7.2% vs 2025</b></div>
+      <div class="pmn-key"><small>Sold at indie stores</small><span class="pmn-num">546K</span><b>▲ +12.5% vs 2025</b></div>
+    </div>
+
+    <span class="pmn-eyebrow">Top of the charts</span>
+    <h2>This week’s No. 1s</h2>
+    <div class="pmn-ones">
+      <div class="pmn-one">
+        <p class="pmn-where">No. 1 · All physical retail</p>
+        <p class="pmn-title">Wildchild</p><p class="pmn-by">Alex Warren · Atlantic</p>
+        <dl><div><dt>Physical sales</dt><dd>44,226</dd></div><div><dt>On vinyl</dt><dd>32,857</dd></div><div><dt>Sold online</dt><dd>88%</dd></div></dl>
+      </div>
+      <div class="pmn-one">
+        <p class="pmn-where">No. 1 · Independent stores</p>
+        <p class="pmn-title">So Much for Goodbyes</p><p class="pmn-by">Billy Strings · Reprise</p>
+        <dl><div><dt>Indie sales</dt><dd>6,805</dd></div><div><dt>On vinyl</dt><dd>5,272</dd></div><div><dt>All retail</dt><dd>25,474</dd></div></dl>
+      </div>
+    </div>
+    
+    <p><strong>Alex Warren’s <em>Wildchild</em></strong> was the best-selling physical album of the week, with 44,226 copies — 32,857 of them on vinyl, which also made it the week’s top vinyl album. The album landed at No. 2 on the Billboard 200, and physical sales accounted for 60% of its total consumption for the week. Almost nine in ten of those physical copies were bought online, the opposite of the K-pop titles around it: Stray Kids’ <em>This &amp; That</em> (No. 2, 28,912) sold 92% of its copies in stores.</p>
+    <p><strong>Billy Strings’ <em>So Much for Goodbyes</em></strong> topped independent record stores, where it was the No. 1 album overall and on vinyl. Across all retail it was No. 3 on the physical chart and No. 2 on vinyl, and physical sales made up 75% of its total units for the week.</p>
+    <p>New releases dominated. Seven of the top 10 overall physical albums weren’t on last week’s chart, most of them from the Aug. 28 release slate: Billy Strings, The Warning, Prince, Mastodon and Sara Bareilles.</p>
+
+    <span class="pmn-eyebrow">The week in physical</span>
+    <h2>CDs and indie stores carried the week</h2>
+    <p>After a down week, physical album sales bounced back to <strong>1,587,282</strong>, up 1.4% from 1,564,882 in the same week of 2025.</p>
+    <p><strong>CDs led the gain.</strong> CD album sales reached 680,017, up 7.2% on the year, after dipping the week before. CD sales at D2C storefronts rose 39%, and at independent stores 15%.</p>
+    <p><strong>Vinyl dipped.</strong> Vinyl albums fell 2.4% to 897,326, mostly because D2C vinyl sales were down 31% from the same week last year.</p>
+    <p><strong>Channels split.</strong> Independent record stores took 34% of all physical sales and grew 12.5%. Mass-market stores took 25% and slipped 1%, their second straight week below 2025.</p>
+    <p>It was also a week without a blockbuster. For the second week in a row, no album passed 100,000 units on the Billboard 200, and it’s now five weeks since any title sold 100,000 physical copies.</p>
+    
+    <!-- Interactive Chart: YOY Changes -->
+    <figure class="pmn-fig">
+      <div class="chart-wrapper">
+        <canvas id="yoyChart" height="180"></canvas>
+      </div>
+      <figcaption>D2C = direct-to-consumer storefronts. Source: Luminate.</figcaption>
+    </figure>
+
+    <span class="pmn-eyebrow">The charts</span>
+    <h2>Top 10 physical albums, week 35</h2>
+    <div class="pmn-tables">
+      <table>
+      <caption>All physical albums · all retail</caption>
+      <thead><tr><th>Rank</th><th>LW</th><th>Album</th><th class="pmn-r">Sales</th></tr></thead>
+      <tbody>
+      <tr class="pmn-top"><td class="pmn-rank">1</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Wildchild</span><span class="pmn-art">Alex Warren</span></td><td class="pmn-r">44,226</td></tr>
+      <tr><td class="pmn-rank">2</td><td class="pmn-lw">2</td><td><span class="pmn-alb">This &amp; That</span><span class="pmn-art">Stray Kids</span></td><td class="pmn-r">28,912</td></tr>
+      <tr><td class="pmn-rank">3</td><td class="pmn-lw">—</td><td><span class="pmn-alb">So Much for Goodbyes</span><span class="pmn-art">Billy Strings</span></td><td class="pmn-r">25,474</td></tr>
+      <tr><td class="pmn-rank">4</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Everything’s Falling</span><span class="pmn-art">The Warning</span></td><td class="pmn-r">24,576</td></tr>
+      <tr><td class="pmn-rank">5</td><td class="pmn-lw">1</td><td><span class="pmn-alb">The Sin : Bliss</span><span class="pmn-art">ENHYPEN</span></td><td class="pmn-r">22,342</td></tr>
+      <tr><td class="pmn-rank">6</td><td class="pmn-lw">3</td><td><span class="pmn-alb">Wild</span><span class="pmn-art">KATSEYE</span></td><td class="pmn-r">20,049</td></tr>
+      <tr><td class="pmn-rank">7</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Timeless</span><span class="pmn-art">Prince</span></td><td class="pmn-r">13,842</td></tr>
+      <tr><td class="pmn-rank">8</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Marrow Deep</span><span class="pmn-art">Mastodon</span></td><td class="pmn-r">13,145</td></tr>
+      <tr><td class="pmn-rank">9</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Good Grief</span><span class="pmn-art">Sara Bareilles</span></td><td class="pmn-r">11,366</td></tr>
+      <tr><td class="pmn-rank">10</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Blingy – The 7th Album</span><span class="pmn-art">NCT 127</span></td><td class="pmn-r">11,275</td></tr>
+      </tbody>
+      </table>
+
+      <table>
+      <caption>All physical albums · independent stores</caption>
+      <thead><tr><th>Rank</th><th>LW</th><th>Album</th><th class="pmn-r">Sales</th></tr></thead>
+      <tbody>
+      <tr class="pmn-top"><td class="pmn-rank">1</td><td class="pmn-lw">—</td><td><span class="pmn-alb">So Much for Goodbyes</span><span class="pmn-art">Billy Strings</span></td><td class="pmn-r">6,805</td></tr>
+      <tr><td class="pmn-rank">2</td><td class="pmn-lw">1</td><td><span class="pmn-alb">Lost Weekend</span><span class="pmn-art">Phoebe Bridgers</span></td><td class="pmn-r">4,509</td></tr>
+      <tr><td class="pmn-rank">3</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Marrow Deep</span><span class="pmn-art">Mastodon</span></td><td class="pmn-r">4,105</td></tr>
+      <tr><td class="pmn-rank">4</td><td class="pmn-lw">—</td><td><span class="pmn-alb">This Mirror Weighs a Ton</span><span class="pmn-art">Interpol</span></td><td class="pmn-r">3,762</td></tr>
+      <tr><td class="pmn-rank">5</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Czarface Meets Frankie Pulitzer</span><span class="pmn-art">Czarface</span></td><td class="pmn-r">3,629</td></tr>
+      <tr><td class="pmn-rank">6</td><td class="pmn-lw">—</td><td><span class="pmn-alb">There Near</span><span class="pmn-art">Dinosaur Jr.</span></td><td class="pmn-r">2,668</td></tr>
+      <tr><td class="pmn-rank">7</td><td class="pmn-lw">—</td><td><span class="pmn-alb">I Must Be Dreaming</span><span class="pmn-art">Alabama Shakes</span></td><td class="pmn-r">2,641</td></tr>
+      <tr><td class="pmn-rank">8</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Thank You</span><span class="pmn-art">Mike D</span></td><td class="pmn-r">2,491</td></tr>
+      <tr><td class="pmn-rank">9</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Wildchild</span><span class="pmn-art">Alex Warren</span></td><td class="pmn-r">2,353</td></tr>
+      <tr><td class="pmn-rank">10</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Everything’s Falling</span><span class="pmn-art">The Warning</span></td><td class="pmn-r">2,222</td></tr>
+      </tbody>
+      </table>
+
+      <table>
+      <caption>Vinyl albums · all retail</caption>
+      <thead><tr><th>Rank</th><th>LW</th><th>Album</th><th class="pmn-r">Sales</th></tr></thead>
+      <tbody>
+      <tr class="pmn-top"><td class="pmn-rank">1</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Wildchild</span><span class="pmn-art">Alex Warren</span></td><td class="pmn-r">32,857</td></tr>
+      <tr><td class="pmn-rank">2</td><td class="pmn-lw">—</td><td><span class="pmn-alb">So Much for Goodbyes</span><span class="pmn-art">Billy Strings</span></td><td class="pmn-r">19,867</td></tr>
+      <tr><td class="pmn-rank">3</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Everything’s Falling</span><span class="pmn-art">The Warning</span></td><td class="pmn-r">13,136</td></tr>
+      <tr><td class="pmn-rank">4</td><td class="pmn-lw">4</td><td><span class="pmn-alb">Thriller</span><span class="pmn-art">Michael Jackson</span></td><td class="pmn-r">7,725</td></tr>
+      <tr><td class="pmn-rank">5</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Marrow Deep</span><span class="pmn-art">Mastodon</span></td><td class="pmn-r">6,789</td></tr>
+      <tr><td class="pmn-rank">6</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Don&#x27;t Look Down</span><span class="pmn-art">Rod Wave</span></td><td class="pmn-r">6,706</td></tr>
+      <tr><td class="pmn-rank">7</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Pure Ecstasy</span><span class="pmn-art">Beartooth</span></td><td class="pmn-r">6,567</td></tr>
+      <tr><td class="pmn-rank">8</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Timeless</span><span class="pmn-art">Prince</span></td><td class="pmn-r">6,536</td></tr>
+      <tr><td class="pmn-rank">9</td><td class="pmn-lw">6</td><td><span class="pmn-alb">you seem pretty sad for a girl so in love</span><span class="pmn-art">Olivia Rodrigo</span></td><td class="pmn-r">6,299</td></tr>
+      <tr><td class="pmn-rank">10</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Good Grief</span><span class="pmn-art">Sara Bareilles</span></td><td class="pmn-r">6,294</td></tr>
+      </tbody>
+      </table>
+
+      <table>
+      <caption>Vinyl albums · independent stores</caption>
+      <thead><tr><th>Rank</th><th>LW</th><th>Album</th><th class="pmn-r">Sales</th></tr></thead>
+      <tbody>
+      <tr class="pmn-top"><td class="pmn-rank">1</td><td class="pmn-lw">—</td><td><span class="pmn-alb">So Much for Goodbyes</span><span class="pmn-art">Billy Strings</span></td><td class="pmn-r">5,272</td></tr>
+      <tr><td class="pmn-rank">2</td><td class="pmn-lw">1</td><td><span class="pmn-alb">Lost Weekend</span><span class="pmn-art">Phoebe Bridgers</span></td><td class="pmn-r">2,984</td></tr>
+      <tr><td class="pmn-rank">3</td><td class="pmn-lw">—</td><td><span class="pmn-alb">This Mirror Weighs a Ton</span><span class="pmn-art">Interpol</span></td><td class="pmn-r">2,742</td></tr>
+      <tr><td class="pmn-rank">4</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Czarface Meets Frankie Pulitzer</span><span class="pmn-art">Czarface</span></td><td class="pmn-r">2,513</td></tr>
+      <tr><td class="pmn-rank">5</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Marrow Deep</span><span class="pmn-art">Mastodon</span></td><td class="pmn-r">2,262</td></tr>
+      <tr><td class="pmn-rank">6</td><td class="pmn-lw">—</td><td><span class="pmn-alb">I Must Be Dreaming</span><span class="pmn-art">Alabama Shakes</span></td><td class="pmn-r">2,032</td></tr>
+      <tr><td class="pmn-rank">7</td><td class="pmn-lw">—</td><td><span class="pmn-alb">There Near</span><span class="pmn-art">Dinosaur Jr.</span></td><td class="pmn-r">1,843</td></tr>
+      <tr><td class="pmn-rank">8</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Thank You</span><span class="pmn-art">Mike D</span></td><td class="pmn-r">1,805</td></tr>
+      <tr><td class="pmn-rank">9</td><td class="pmn-lw">6</td><td><span class="pmn-alb">Thriller</span><span class="pmn-art">Michael Jackson</span></td><td class="pmn-r">1,504</td></tr>
+      <tr><td class="pmn-rank">10</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Dancing While the World Is Ending</span><span class="pmn-art">Stanley Simmons</span></td><td class="pmn-r">1,279</td></tr>
+      </tbody>
+      </table>
+
+      <table>
+      <caption>CD albums · all retail</caption>
+      <thead><tr><th>Rank</th><th>LW</th><th>Album</th><th class="pmn-r">Sales</th></tr></thead>
+      <tbody>
+      <tr class="pmn-top"><td class="pmn-rank">1</td><td class="pmn-lw">2</td><td><span class="pmn-alb">This &amp; That</span><span class="pmn-art">Stray Kids</span></td><td class="pmn-r">26,757</td></tr>
+      <tr><td class="pmn-rank">2</td><td class="pmn-lw">1</td><td><span class="pmn-alb">The Sin : Bliss</span><span class="pmn-art">ENHYPEN</span></td><td class="pmn-r">21,884</td></tr>
+      <tr><td class="pmn-rank">3</td><td class="pmn-lw">3</td><td><span class="pmn-alb">Wild</span><span class="pmn-art">KATSEYE</span></td><td class="pmn-r">16,224</td></tr>
+      <tr><td class="pmn-rank">4</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Everything’s Falling</span><span class="pmn-art">The Warning</span></td><td class="pmn-r">11,440</td></tr>
+      <tr><td class="pmn-rank">5</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Blingy – The 7th Album</span><span class="pmn-art">NCT 127</span></td><td class="pmn-r">11,275</td></tr>
+      <tr><td class="pmn-rank">6</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Wildchild</span><span class="pmn-art">Alex Warren</span></td><td class="pmn-r">11,190</td></tr>
+      <tr><td class="pmn-rank">7</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Timeless</span><span class="pmn-art">Prince</span></td><td class="pmn-r">7,306</td></tr>
+      <tr><td class="pmn-rank">8</td><td class="pmn-lw">4</td><td><span class="pmn-alb">Greengreen</span><span class="pmn-art">CORTIS</span></td><td class="pmn-r">6,913</td></tr>
+      <tr><td class="pmn-rank">9</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Marrow Deep</span><span class="pmn-art">Mastodon</span></td><td class="pmn-r">6,104</td></tr>
+      <tr><td class="pmn-rank">10</td><td class="pmn-lw">—</td><td><span class="pmn-alb">So Much for Goodbyes</span><span class="pmn-art">Billy Strings</span></td><td class="pmn-r">5,607</td></tr>
+      </tbody>
+      </table>
+
+      <table>
+      <caption>CD albums · independent stores</caption>
+      <thead><tr><th>Rank</th><th>LW</th><th>Album</th><th class="pmn-r">Sales</th></tr></thead>
+      <tbody>
+      <tr class="pmn-top"><td class="pmn-rank">1</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Marrow Deep</span><span class="pmn-art">Mastodon</span></td><td class="pmn-r">1,843</td></tr>
+      <tr><td class="pmn-rank">2</td><td class="pmn-lw">—</td><td><span class="pmn-alb">So Much for Goodbyes</span><span class="pmn-art">Billy Strings</span></td><td class="pmn-r">1,533</td></tr>
+      <tr><td class="pmn-rank">3</td><td class="pmn-lw">1</td><td><span class="pmn-alb">Lost Weekend</span><span class="pmn-art">Phoebe Bridgers</span></td><td class="pmn-r">1,333</td></tr>
+      <tr><td class="pmn-rank">4</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Wildchild</span><span class="pmn-art">Alex Warren</span></td><td class="pmn-r">1,090</td></tr>
+      <tr><td class="pmn-rank">5</td><td class="pmn-lw">—</td><td><span class="pmn-alb">This Mirror Weighs a Ton</span><span class="pmn-art">Interpol</span></td><td class="pmn-r">1,020</td></tr>
+      <tr><td class="pmn-rank">6</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Everything’s Falling</span><span class="pmn-art">The Warning</span></td><td class="pmn-r">974</td></tr>
+      <tr><td class="pmn-rank">7</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Czarface Meets Frankie Pulitzer</span><span class="pmn-art">Czarface</span></td><td class="pmn-r">897</td></tr>
+      <tr><td class="pmn-rank">8</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Timeless</span><span class="pmn-art">Prince</span></td><td class="pmn-r">890</td></tr>
+      <tr><td class="pmn-rank">9</td><td class="pmn-lw">—</td><td><span class="pmn-alb">There Near</span><span class="pmn-art">Dinosaur Jr.</span></td><td class="pmn-r">825</td></tr>
+      <tr><td class="pmn-rank">10</td><td class="pmn-lw">3</td><td><span class="pmn-alb">This &amp; That</span><span class="pmn-art">Stray Kids</span></td><td class="pmn-r">789</td></tr>
+      </tbody>
+      </table>
+    </div>
+    <p class="pmn-note">LW = last week’s rank; — = not on last week’s chart.</p>
+
+    <span class="pmn-eyebrow">Independent stores</span>
+    <h2>Indie stores had their biggest week in more than a month</h2>
+    <p>Independent record stores sold <strong>546,303</strong> physical albums, up 12.5% from 485,450 a year ago and up 15% on the prior week. Vinyl made up most of it: 375,974 vinyl albums, up 11.6%. CD sales at indies reached about 165,000, up 15%.</p>
+    <p>Among a like-for-like sample of 360 stores, raw sales rose 38% to 191,762. Same-store sales have run ahead of 2025 in each of the last six weeks.</p>
+    
+    <!-- Interactive Chart: Indie Trend -->
+    <figure class="pmn-fig">
+      <div class="chart-wrapper">
+        <canvas id="indieTrendChart" height="150"></canvas>
+      </div>
+      <figcaption>Modeled independent-store sales vs. raw same-store comparisons. This week, 464 independent stores reported (347 storefronts, 117 online). New to the panel: The Beat District (Petersburg, Va.) and Mojomala (Silver Spring).</figcaption>
+    </figure>
+
+    <span class="pmn-eyebrow">Year to date</span>
+    <h2>Physical sales are up 6.1% on the year, and CDs are doing the heavy lifting</h2>
+    <p>Through Sept. 3, physical album sales total <strong>51.6 million</strong>, up 6.1% on the same period of 2025. Vinyl is still the bigger format at 56% of physical sales, but it’s growing slowly: up 2.1% to nearly 29 million, or 11% if modeled vinyl sales are excluded. CDs are up 12% to 22.4 million.</p>
+    <p>Mass-market stores are driving the growth. Their album sales are up 28% to 14.9 million, with vinyl up 20% and CDs up 35%. Independent stores remain the largest channel at 16.7 million albums, 32.3% of all physical sales.</p>
+    <table>
+      <caption>Year-to-date album sales by format</caption>
+      <thead><tr><th>Format</th><th class="pmn-r">2025 YTD</th><th class="pmn-r">2026 YTD</th><th class="pmn-r">Change</th></tr></thead>
+      <tbody>
+      <tr><td>Vinyl</td><td class="pmn-r">28,355,933</td><td class="pmn-r">28,960,899</td><td class="pmn-r">+2.1%</td></tr>
+      <tr><td>CD</td><td class="pmn-r">20,020,429</td><td class="pmn-r">22,354,814</td><td class="pmn-r">+11.7%</td></tr>
+      <tr><td>Cassette</td><td class="pmn-r">264,836</td><td class="pmn-r">291,468</td><td class="pmn-r">+10.1%</td></tr>
+      <tr><td><strong>All physical</strong></td><td class="pmn-r"><strong>48,637,995</strong></td><td class="pmn-r"><strong>51,607,181</strong></td><td class="pmn-r"><strong>+6.1%</strong></td></tr>
+      </tbody>
+    </table>
+    
+    <!-- Interactive Chart: YTD Vinyl by Channel -->
+    <figure class="pmn-fig">
+      <div class="chart-wrapper">
+        <canvas id="ytdChannelChart" height="150"></canvas>
+      </div>
+      <figcaption>Independent stores account for 11.5 million vinyl albums this year, 40% of the total. Source: Luminate.</figcaption>
+    </figure>
+
+    <span class="pmn-eyebrow">By the numbers</span>
+    <h2>Four things worth knowing</h2>
+    <div class="pmn-numbers">
+      <div><span class="pmn-num">28,000</span><p>Physical Dolly Parton albums sold in the last two weeks, more than the 26,000 sold in the first 33 weeks of the year combined.</p></div>
+      <div><span class="pmn-num">130,069</span><p>Vinyl albums sold by Michael Jackson at indie stores this year, the most of any artist. <em>Thriller</em> was No. 4 on this week’s overall vinyl chart.</p></div>
+      <div><span class="pmn-num">24%</span><p>Share of total consumption units that came from physical sales for the Billboard 200’s top 25 albums. Six of the 25 got more than half their units from physical, as high as 90%.</p></div>
+      <div><span class="pmn-num">47%</span><p>Share of all CD album sales this week that came from the 200 best-selling CDs, with the rest spread across titles outside the Top 200.</p></div>
+    </div>
+
+    <div class="pmn-cta">
+      <h2>Get the full Top 200, every week</h2>
+      <p>This report covers the top 10 of six weekly charts. Luminate customers can go further in Connect, with the full charts and album-level dashboards behind every title.</p>
+      <a class="pmn-btn" href="https://www.luminatedata.com/">Talk to our team</a>
+    </div>
+
+    <p class="pmn-source"><strong>Source:</strong> Luminate. Weekly figures cover the tracking week Aug. 28 – Sept. 3, 2026, compared with the same week of 2025. Year-to-date figures run through Sept. 3 and compare with the same period of 2025. Independent-store totals are modeled; same-store figures are raw sales from stores reporting in both years.</p>
+
+  </div>
+</div>
+
+<script>
+  Chart.defaults.font.family = '"Aktiv Grotesk", "Hanken Grotesk", Helvetica, Arial, sans-serif';
+  Chart.defaults.color = '#5E5E63'; // matches --pmn-ink-3
+
+  const styleConfig = {
+    grid: { color: '#EAEAEA', drawBorder: false },
+    ticks: { padding: 8 }
+  };
+
+  // Chart 1: YOY Percent Changes
+  new Chart(document.getElementById('yoyChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: ['All Physical', 'CDs', 'Indie Stores', 'Mass Market', 'Vinyl', 'D2C Vinyl', 'D2C CD'],
+      datasets: [{
+        label: '% Change vs. 2025',
+        data: [1.4, 7.2, 12.5, -1.0, -2.4, -31.0, 39.0],
+        backgroundColor: (ctx) => {
+          return ctx.raw > 0 ? '#387A91' : '#D1CAB9'; // Blue for positive, Tan for negative
+        },
+        borderRadius: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => `${ctx.raw}%` } } },
+      scales: {
+        y: { grid: styleConfig.grid, ticks: styleConfig.ticks },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  // Chart 2: Indie Trend (Last 6 Weeks)
+  new Chart(document.getElementById('indieTrendChart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: ['Jul. 30', 'Aug. 6', 'Aug. 13', 'Aug. 20', 'Aug. 27', 'Sept. 3'],
+      datasets: [
+        {
+          label: 'Modeled (2025)',
+          data: [508475, 483841, 463407, 439817, 456211, 485450],
+          borderColor: '#D1CAB9', // --pmn-rule
+          tension: 0.3
+        },
+        {
+          label: 'Modeled (2026)',
+          data: [474229, 492465, 480688, 530821, 474531, 546303],
+          borderColor: '#2B6275', // --pmn-blue-ink
+          borderWidth: 3,
+          tension: 0.3
+        },
+        {
+          label: 'Raw Same-Store (2026)',
+          data: [157661, 158334, 156763, 185346, 155388, 191762],
+          borderColor: '#FFCC18', // --pmn-yellow
+          borderWidth: 3,
+          borderDash: [5, 5],
+          tension: 0.3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8 } } },
+      scales: {
+        y: { beginAtZero: true, grid: styleConfig.grid, ticks: styleConfig.ticks },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  // Chart 3: YTD Vinyl by Channel
+  new Chart(document.getElementById('ytdChannelChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: ['Independents', 'Mass Market', 'E-commerce', 'D2C', 'Venue', 'Non-Traditional'],
+      datasets: [{
+        label: 'YTD Vinyl Albums Sold',
+        data: [11463315, 6859772, 6231464, 3697941, 396235, 312172],
+        backgroundColor: '#387A91', // --pmn-blue
+        borderRadius: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { grid: styleConfig.grid, ticks: styleConfig.ticks },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+</script>
+</body>
+</html>
