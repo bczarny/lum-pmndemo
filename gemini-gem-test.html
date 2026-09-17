@@ -3,14 +3,18 @@
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,700;1,400&display=swap");
 
-/* Physical Music News — Luminate Blog Post Styles */
+/* Luminate Master Blog Post Styles */
 .pmn {
   --pmn-charcoal: #121316;
-  --pmn-cream: #F0E8D3;
+  --pmn-cream: #F2ECE1;
   --pmn-pink: #FFADF2;
-  --pmn-blue: #59C7EE;
-  --pmn-purple: #A18EF8;
-  --pmn-neon: #C2FF0A;
+  --pmn-cyan: #59C7EE;
+  --pmn-blue-2: #387A91;
+  --pmn-blue-3: #2B6275;
+  --pmn-blue-4: #234959;
+  --pmn-blue-5: #1A3746;
+  --pmn-ice: #B9E2F5;
+  --pmn-yellow: #FFCC18;
   --pmn-grey: #5E5E63;
   --pmn-border: #1E1F25;
   
@@ -19,166 +23,184 @@
   font-family: "Aktiv Grotesk", "Hanken Grotesk", Helvetica, Arial, sans-serif;
   font-size: 18px;
   line-height: 1.6;
-  max-width: 840px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 40px 20px;
 }
 .pmn * { box-sizing: border-box; }
-.pmn p { margin: 0 0 1.2em; }
-.pmn ul { margin: 0 0 1.5em 1.2em; padding: 0; }
-.pmn li { margin-bottom: 0.6em; }
+.pmn p { margin: 0 0 1.4em; }
+.pmn ul { margin: 0 0 1.8em 1.2em; padding: 0; }
+.pmn li { margin-bottom: 0.8em; }
+
+/* Custom Blog Header matching reference image */
+.pmn-header-wrapper {
+  margin-bottom: 3em;
+  padding-bottom: 1em;
+  position: relative;
+}
+.pmn-category-tag {
+  display: inline-block;
+  background-color: var(--pmn-cyan);
+  color: var(--pmn-charcoal);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 6px 30px;
+  margin-bottom: 2em;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.pmn-h1 {
+  font-size: 4rem;
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--pmn-border);
+  margin: 1em 0 0.5em 0;
+  max-width: 85%;
+}
+.pmn-author-meta {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pmn-border);
+  margin-top: 2em;
+}
+.pmn-author-meta strong { font-weight: 700; }
 
 .pmn h2 {
   font-size: 2.2rem;
   line-height: 1.1;
   font-weight: 700;
   letter-spacing: -0.02em;
-  margin: 2em 0 0.8em;
+  margin: 2.5em 0 1em;
   color: var(--pmn-border);
 }
-.pmn .pmn-dek { font-size: 1.25rem; line-height: 1.5; font-weight: 500; color: var(--pmn-border); margin-bottom: 10px; }
-.pmn .pmn-meta { font-size: 0.9rem; color: var(--pmn-grey); border-bottom: 2px solid var(--pmn-border); padding-bottom: 20px; margin-bottom: 30px; }
 
-/* Key Metrics Bar */
+/* Key Metrics Box (Matches Reference) */
 .pmn .pmn-keys {
   display: flex;
+  background-color: #FFFFFF;
   border-top: 3px solid var(--pmn-border);
   border-bottom: 3px solid var(--pmn-border);
-  background-color: #FFFFFF;
-  margin: 2.5em 0;
+  margin: 3em 0;
 }
 .pmn .pmn-key {
   flex: 1;
-  padding: 20px 15px;
+  padding: 30px 20px;
   border-right: 1px solid var(--pmn-border);
   display: flex;
   flex-direction: column;
 }
 .pmn .pmn-key:last-child { border-right: none; }
 .pmn .pmn-key small {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--pmn-grey);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   line-height: 1.3;
-  margin-bottom: auto;
+  margin-bottom: 10px;
 }
 .pmn .pmn-key .pmn-num {
   font-family: "Anton", Impact, sans-serif;
-  font-size: 3.5rem;
+  font-size: 3.8rem;
   line-height: 1;
   color: var(--pmn-border);
   letter-spacing: 0.02em;
-  margin: 10px 0;
+  margin: 5px 0 15px;
 }
-.pmn .pmn-key b { font-size: 0.85rem; font-weight: 700; }
-.pmn .pmn-key b.pos { color: #2B6275; }
-.pmn .pmn-key b.neg { color: #A18EF8; }
+.pmn .pmn-key b { font-size: 0.9rem; font-weight: 700; }
+.pmn .pmn-key b.pos { color: var(--pmn-cyan); }
+.pmn .pmn-key b.neg { color: var(--pmn-pink); }
 
-/* Luminate Dark Chart Cards */
-.pmn figure.pmn-fig { margin: 3em 0; padding: 0; }
+/* Luminate Dark Chart Cards (Matches Reference) */
+.pmn figure.pmn-fig { margin: 3.5em 0; padding: 0; }
 .pmn .chart-card {
   background-color: var(--pmn-charcoal);
-  padding: 40px;
-  color: var(--pmn-cream);
+  padding: 50px 50px 30px 50px;
+  color: #FFFFFF;
 }
-.pmn .chart-header { margin-bottom: 30px; }
+.pmn .chart-header { margin-bottom: 40px; }
 .pmn .chart-title {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: #FFFFFF;
   text-transform: uppercase;
-  margin: 0 0 5px 0;
+  margin: 0 0 8px 0;
   line-height: 1.1;
   letter-spacing: -0.01em;
 }
 .pmn .chart-subtitle {
-  font-size: 1.1rem;
-  color: var(--pmn-cream);
+  font-size: 1.25rem;
+  color: #D1CAB9;
   margin: 0;
   font-weight: 400;
 }
-.pmn .chart-body { position: relative; width: 100%; min-height: 350px; }
+.pmn .chart-body { position: relative; width: 100%; min-height: 400px; }
 .pmn .chart-footer {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 .pmn .chart-logo {
   font-family: "Anton", Impact, sans-serif;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   line-height: 1;
   letter-spacing: 0.02em;
   color: #FFFFFF;
-  border-bottom: 3px solid #FFFFFF;
-  padding-bottom: 2px;
+  border-bottom: 4px solid #FFFFFF;
+  padding-bottom: 4px;
   margin: 0;
 }
 .pmn .chart-source {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  color: var(--pmn-cream);
+  color: #FFFFFF;
   letter-spacing: 0.05em;
   text-align: right;
   max-width: 60%;
 }
 
 /* Data Tables */
-.pmn .pmn-tables { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; margin: 1.5em 0; }
+.pmn .pmn-tables { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; margin: 2em 0; }
 .pmn table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 0.9rem; margin: 0; background: #FFFFFF; border: 1px solid var(--pmn-border); }
-.pmn table caption { text-align: left; font-weight: 700; font-size: 1rem; padding: 10px 15px; background: var(--pmn-border); color: var(--pmn-cream); text-transform: uppercase; letter-spacing: 0.05em;}
-.pmn th { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pmn-grey); text-align: left; padding: 10px 15px; border-bottom: 2px solid var(--pmn-border); }
-.pmn td { padding: 10px 15px; border-bottom: 1px solid var(--pmn-border); vertical-align: middle; }
+.pmn table caption { text-align: left; font-weight: 700; font-size: 1rem; padding: 15px; background: var(--pmn-border); color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em;}
+.pmn th { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pmn-grey); text-align: left; padding: 12px 15px; border-bottom: 2px solid var(--pmn-border); }
+.pmn td { padding: 12px 15px; border-bottom: 1px solid var(--pmn-border); vertical-align: middle; }
 .pmn td.pmn-rank { font-family: "Anton", Impact, sans-serif; font-size: 1.4rem; width: 3rem; color: var(--pmn-border); text-align: center; border-right: 1px solid var(--pmn-border); }
-.pmn tr.pmn-top td.pmn-rank { color: var(--pmn-blue); }
+.pmn tr.pmn-top td.pmn-rank { color: var(--pmn-cyan); }
 .pmn td.pmn-lw { color: var(--pmn-grey); font-size: 0.8rem; width: 2.5rem; text-align: center; }
 .pmn td .pmn-alb { display: block; font-weight: 700; line-height: 1.2; color: var(--pmn-border); }
 .pmn td .pmn-art { display: block; color: var(--pmn-grey); font-size: 0.85rem; line-height: 1.3; }
 .pmn .pmn-r { text-align: right; font-weight: 700; }
 
-/* Factoids */
-.pmn .pmn-numbers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 3px solid var(--pmn-border); margin: 1.5em 0; background: #FFFFFF; border: 1px solid var(--pmn-border); }
-.pmn .pmn-numbers > div { padding: 30px; border-bottom: 1px solid var(--pmn-border); }
-.pmn .pmn-numbers > div:nth-child(even) { border-left: 1px solid var(--pmn-border); }
-.pmn .pmn-numbers .pmn-num { display: block; font-family: "Anton", Impact, sans-serif; font-size: 3.5rem; line-height: 1; margin-bottom: 10px; color: var(--pmn-blue); }
-.pmn .pmn-numbers p { font-size: 1rem; color: var(--pmn-border); margin: 0; font-weight: 500; }
-
-.pmn .pmn-cta {
-  background: var(--pmn-border);
-  color: var(--pmn-cream);
-  padding: 35px;
-  margin: 2.6em 0 1.6em;
-  border-radius: 2px;
-}
-.pmn .pmn-cta h2 { color: #FFFFFF; margin: 0 0 .4em; }
-.pmn .pmn-cta p { color: var(--pmn-cream); }
-.pmn .pmn-cta a.pmn-btn {
-  display: inline-block;
-  background: var(--pmn-blue);
-  color: #101014;
-  font-weight: 700;
-  text-decoration: none;
-  padding: 12px 20px;
-  border-radius: 2px;
-  margin-right: 16px;
-}
-
 @media (max-width: 768px) {
+  .pmn-h1 { font-size: 2.8rem; max-width: 100%; margin-top: 1.5em; }
+  .pmn-category-tag { position: relative; margin-bottom: 1em; }
   .pmn .pmn-keys { flex-wrap: wrap; }
   .pmn .pmn-key { flex: 1 1 50%; border-bottom: 1px solid var(--pmn-border); }
   .pmn .pmn-key:nth-child(even) { border-right: none; }
-  .pmn .pmn-tables, .pmn .pmn-numbers { grid-template-columns: 1fr; }
-  .pmn .pmn-numbers > div:nth-child(even) { border-left: none; }
-  .pmn .chart-footer { flex-direction: column; align-items: flex-start; gap: 15px; }
+  .pmn .pmn-tables { grid-template-columns: 1fr; }
+  .pmn .chart-card { padding: 30px 20px; }
+  .pmn .chart-footer { flex-direction: column; align-items: flex-start; gap: 20px; }
   .pmn .chart-source { text-align: left; max-width: 100%; }
 }
 </style>
 
 <div class="pmn">
-  <p class="pmn-dek">Overall physical album sales crossed 1.5 million units with an 18% YoY jump, led by ADELA's PRIMA debut and a 28% expansion in vinyl album sales.</p>
-  <p class="pmn-meta">By Chris Muratore, Director, Partnerships · Tracking week Sept. 4 – Sept. 10, 2026</p>
+
+  <div class="pmn-header-wrapper">
+    <span class="pmn-category-tag">MUSIC</span>
+    <h1 class="pmn-h1">ADELA's PRIMA Debuts at No. 1 Overall as Phoebe Bridgers Reclaims Indie Record Stores</h1>
+    <p class="pmn-author-meta"><strong>CHRIS MURATORE, DIRECTOR, PARTNERSHIPS</strong> &nbsp;&nbsp;&nbsp;SEPTEMBER 10, 2026 &mdash; 4 MIN READ</p>
+  </div>
+
+  <p>ADELA's highly anticipated <em>PRIMA</em> claims the top spot on both the physical and vinyl charts this week, while Stray Kids ensures K-Pop continues its powerful dominance of brick-and-mortar storefronts.</p>
 
   <!-- Key Metrics Bar -->
   <div class="pmn-keys">
@@ -300,10 +322,45 @@
     <tr><td class="pmn-rank">10</td><td class="pmn-lw">3</td><td><span class="pmn-alb">This Mirror Weighs a Ton</span><span class="pmn-art">Interpol</span></td><td class="pmn-r">883</td></tr>
     </tbody>
     </table>
+
+    <table>
+    <caption>CD albums · all retail</caption>
+    <thead><tr><th>Rank</th><th>LW</th><th>Album</th><th class="pmn-r">Sales</th></tr></thead>
+    <tbody>
+    <tr class="pmn-top"><td class="pmn-rank">1</td><td class="pmn-lw">1</td><td><span class="pmn-alb">THIS &amp; THAT</span><span class="pmn-art">Stray Kids</span></td><td class="pmn-r">25,400</td></tr>
+    <tr><td class="pmn-rank">2</td><td class="pmn-lw">—</td><td><span class="pmn-alb">PRIMA</span><span class="pmn-art">ADELA</span></td><td class="pmn-r">15,680</td></tr>
+    <tr><td class="pmn-rank">3</td><td class="pmn-lw">2</td><td><span class="pmn-alb">THE SIN: BLISS</span><span class="pmn-art">ENHYPEN</span></td><td class="pmn-r">15,102</td></tr>
+    <tr><td class="pmn-rank">4</td><td class="pmn-lw">3</td><td><span class="pmn-alb">WILD</span><span class="pmn-art">KATSEYE</span></td><td class="pmn-r">12,147</td></tr>
+    <tr><td class="pmn-rank">5</td><td class="pmn-lw">—</td><td><span class="pmn-alb">THE PHASE</span><span class="pmn-art">MONSTA X</span></td><td class="pmn-r">11,311</td></tr>
+    <tr><td class="pmn-rank">6</td><td class="pmn-lw">8</td><td><span class="pmn-alb">GREENGREEN</span><span class="pmn-art">CORTIS</span></td><td class="pmn-r">5,846</td></tr>
+    <tr><td class="pmn-rank">7</td><td class="pmn-lw">—</td><td><span class="pmn-alb">B'Day</span><span class="pmn-art">Beyoncé</span></td><td class="pmn-r">4,859</td></tr>
+    <tr><td class="pmn-rank">8</td><td class="pmn-lw">12</td><td><span class="pmn-alb">SIS (Soft Is Strong)</span><span class="pmn-art">KATSEYE</span></td><td class="pmn-r">4,521</td></tr>
+    <tr><td class="pmn-rank">9</td><td class="pmn-lw">13</td><td><span class="pmn-alb">you seem pretty sad for a girl so in love</span><span class="pmn-art">Olivia Rodrigo</span></td><td class="pmn-r">4,518</td></tr>
+    <tr><td class="pmn-rank">10</td><td class="pmn-lw">15</td><td><span class="pmn-alb">COLOR OUTSIDE THE LINES</span><span class="pmn-art">CORTIS</span></td><td class="pmn-r">4,231</td></tr>
+    </tbody>
+    </table>
+
+    <table>
+    <caption>CD albums · independent stores</caption>
+    <thead><tr><th>Rank</th><th>LW</th><th>Album</th><th class="pmn-r">Sales</th></tr></thead>
+    <tbody>
+    <tr class="pmn-top"><td class="pmn-rank">1</td><td class="pmn-lw">11</td><td><span class="pmn-alb">you seem pretty sad for a girl so in love</span><span class="pmn-art">Olivia Rodrigo</span></td><td class="pmn-r">918</td></tr>
+    <tr><td class="pmn-rank">2</td><td class="pmn-lw">3</td><td><span class="pmn-alb">Lost Weekend</span><span class="pmn-art">Phoebe Bridgers</span></td><td class="pmn-r">822</td></tr>
+    <tr><td class="pmn-rank">3</td><td class="pmn-lw">10</td><td><span class="pmn-alb">THIS &amp; THAT</span><span class="pmn-art">Stray Kids</span></td><td class="pmn-r">724</td></tr>
+    <tr><td class="pmn-rank">4</td><td class="pmn-lw">12</td><td><span class="pmn-alb">channel ORANGE</span><span class="pmn-art">Frank Ocean</span></td><td class="pmn-r">702</td></tr>
+    <tr><td class="pmn-rank">5</td><td class="pmn-lw">20</td><td><span class="pmn-alb">Thriller</span><span class="pmn-art">Michael Jackson</span></td><td class="pmn-r">645</td></tr>
+    <tr><td class="pmn-rank">6</td><td class="pmn-lw">—</td><td><span class="pmn-alb">Appalachian Smoke</span><span class="pmn-art">Mountain Grass Unit</span></td><td class="pmn-r">641</td></tr>
+    <tr><td class="pmn-rank">7</td><td class="pmn-lw">14</td><td><span class="pmn-alb">THREE CHEERS FOR SWEET REVENGE</span><span class="pmn-art">My Chemical Romance</span></td><td class="pmn-r">624</td></tr>
+    <tr><td class="pmn-rank">8</td><td class="pmn-lw">19</td><td><span class="pmn-alb">AROUND THE FUR</span><span class="pmn-art">Deftones</span></td><td class="pmn-r">606</td></tr>
+    <tr><td class="pmn-rank">9</td><td class="pmn-lw">1</td><td><span class="pmn-alb">Marrow Deep</span><span class="pmn-art">Mastodon</span></td><td class="pmn-r">595</td></tr>
+    <tr><td class="pmn-rank">10</td><td class="pmn-lw">22</td><td><span class="pmn-alb">Oh yeah?</span><span class="pmn-art">Steve Lacy</span></td><td class="pmn-r">592</td></tr>
+    </tbody>
+    </table>
   </div>
+  <p style="font-size: 0.85rem; color: var(--pmn-grey);">LW = last week’s rank; — = not on last week’s chart.</p>
 
   <h2>Indie store momentum continues</h2>
-  <p>Independent record stores moved 512,402 physical albums this week, up 33% from 385,327 in the same week last year. Vinyl represented 338,787 units (+28% YoY), while indie CD album sales reached 168,000 (+26% YoY).</p>
+  <p>Independent record stores moved 512,402 physical albums this week, up 33% from 385,327 in the same week last year. Vinyl represented a huge chunk of that volume with 338,787 units (+28% YoY), while indie CD album sales reached 168,000 (+26% YoY).</p>
 
   <!-- Luminate Dark Chart 2: Indie Trend Line -->
   <figure class="pmn-fig">
@@ -342,28 +399,30 @@
     </div>
   </figure>
 
-  <h2>By the numbers</h2>
-  <div class="pmn-numbers">
-    <div><span class="pmn-num">50%</span><p>Share of ADELA’s debut consumption units for <em>PRIMA</em> generated purely by physical sales.</p></div>
-    <div><span class="pmn-num">23,501</span><p>In-store CD copies sold of Stray Kids’ <em>THIS &amp; THAT</em>, demonstrating heavy brick-and-mortar storefront reliance.</p></div>
-    <div><span class="pmn-num">10,542</span><p>Vinyl copies moved by Beyoncé’s 2006 album <em>B'Day</em>, propelling it to the #2 spot on the overall vinyl chart.</p></div>
-    <div><span class="pmn-num">4.8M</span><p>Total physical albums sold at independent record stores so far in the 3rd quarter of 2026.</p></div>
-  </div>
+  <h2>Factoids</h2>
+  <ul>
+    <li><strong>50%:</strong> Share of ADELA’s debut consumption units for <em>PRIMA</em> generated purely by physical sales.</li>
+    <li><strong>23,501:</strong> In-store CD copies sold of Stray Kids’ <em>THIS &amp; THAT</em>, demonstrating heavy brick-and-mortar storefront reliance.</li>
+    <li><strong>10,542:</strong> Vinyl copies moved by Beyoncé’s 2006 album <em>B'Day</em>, propelling it to the #2 spot on the overall vinyl chart.</li>
+    <li><strong>4.8M:</strong> Total physical albums sold at independent record stores through the third quarter of 2026 to date.</li>
+  </ul>
 
 </div>
 
 <script>
   Chart.defaults.font.family = '"Aktiv Grotesk", "Hanken Grotesk", Helvetica, Arial, sans-serif';
-  Chart.defaults.color = '#F0E8D3'; 
+  Chart.defaults.color = '#FFFFFF'; 
 
-  // Luminate Brand Palette
+  // Luminate Brand Palette mapping directly to reference images
   const palette = {
-    blue: '#59C7EE',
-    pink: '#FFADF2',
-    neon: '#C2FF0A',
-    purple: '#A18EF8',
-    cream: '#F0E8D3',
-    grey: '#5E5E63'
+    ice: '#B9E2F5',
+    cyan: '#59C7EE',
+    blue_medium: '#387A91',
+    blue_steel: '#2B6275',
+    blue_slate: '#234959',
+    blue_dark: '#1A3746',
+    yellow: '#FFCC18',
+    grid: '#333333'
   };
 
   const chartOptionsBase = {
@@ -379,7 +438,7 @@
       labels: ['All Physical', 'CDs', 'Indie Stores', 'Mass Market', 'Vinyl', 'D2C Vinyl', 'D2C CD'],
       datasets: [{
         data: [17.8, 6.7, 33.0, 14.7, 28.0, 40.0, 44.0],
-        backgroundColor: (ctx) => ctx.raw > 0 ? palette.blue : palette.pink,
+        backgroundColor: palette.cyan,
         borderRadius: 2,
         barPercentage: 0.6
       }]
@@ -387,8 +446,8 @@
     options: {
       ...chartOptionsBase,
       scales: {
-        y: { grid: { color: '#333333', drawBorder: false }, ticks: { padding: 10, color: '#F0E8D3', callback: (v) => v + '%' } },
-        x: { grid: { display: false }, ticks: { padding: 10, color: '#F0E8D3', font: { size: 12, weight: '500' } } }
+        y: { grid: { color: palette.grid, drawBorder: false }, ticks: { padding: 10, color: '#FFFFFF', callback: (v) => v + '%' } },
+        x: { grid: { display: false }, ticks: { padding: 10, color: '#FFFFFF', font: { size: 12, weight: '500' } } }
       }
     }
   });
@@ -397,46 +456,55 @@
   new Chart(document.getElementById('indieTrendChart').getContext('2d'), {
     type: 'line',
     data: {
-      labels: ['Jul. 30', 'Aug. 6', 'Aug. 13', 'Aug. 20', 'Aug. 27', 'Sept. 3', 'Sept. 10'],
+      labels: ['Aug. 6', 'Aug. 13', 'Aug. 20', 'Aug. 27', 'Sept. 3', 'Sept. 10'],
       datasets: [
         {
           label: 'Modeled (2025)',
-          data: [508475, 483841, 463407, 439817, 456211, 485450, 385327],
-          borderColor: palette.purple,
-          backgroundColor: palette.purple,
-          borderWidth: 2,
-          tension: 0.2
+          data: [483841, 463407, 439817, 456211, 485450, 385327],
+          borderColor: palette.yellow, // Yellow line from image_8bc490
+          backgroundColor: palette.yellow,
+          borderWidth: 3,
+          tension: 0.1,
+          pointRadius: 5
         },
         {
           label: 'Modeled (2026)',
-          data: [474229, 492465, 480688, 530821, 474531, 546303, 512402],
-          borderColor: palette.neon,
-          backgroundColor: palette.neon,
+          data: [492465, 480688, 530821, 474531, 546303, 512402],
+          borderColor: palette.cyan, // Cyan line from image_8bc490
+          backgroundColor: palette.cyan,
           borderWidth: 3,
-          tension: 0.2
+          tension: 0.1,
+          pointRadius: 5
         }
       ]
     },
     options: {
       ...chartOptionsBase,
       plugins: { 
-        legend: { display: true, position: 'top', align: 'start', labels: { usePointStyle: true, boxWidth: 10, color: '#F0E8D3', font: { size: 14 } } } 
+        legend: { display: true, position: 'top', align: 'start', labels: { usePointStyle: true, boxWidth: 10, color: '#FFFFFF', font: { size: 14 } } } 
       },
       scales: {
-        y: { beginAtZero: false, grid: { color: '#333333', drawBorder: false }, ticks: { padding: 10, color: '#F0E8D3' } },
-        x: { grid: { display: false }, ticks: { padding: 10, color: '#F0E8D3', font: { size: 12 } } }
+        y: { beginAtZero: false, grid: { color: palette.grid, drawBorder: false }, ticks: { padding: 10, color: '#FFFFFF' } },
+        x: { grid: { display: false }, ticks: { padding: 10, color: '#FFFFFF', font: { size: 12 } } }
       }
     }
   });
 
-  // Chart 3: YTD Physical Sales by Strata (Pie Chart)
+  // Chart 3: YTD Physical Sales by Strata (Pie Chart mimicking RHCP Top Songs from image_8bc46d)
   new Chart(document.getElementById('ytdChannelChart').getContext('2d'), {
     type: 'pie',
     data: {
       labels: ['Independents', 'Mass Market', 'E-commerce', 'D2C', 'Venue', 'Non-Traditional'],
       datasets: [{
         data: [11797439, 7052703, 6422506, 3804441, 411478, 320972],
-        backgroundColor: [palette.blue, palette.purple, palette.pink, palette.neon, palette.cream, palette.grey],
+        backgroundColor: [
+          palette.ice,          // Largest slice
+          palette.cyan,         // 2nd
+          palette.blue_medium,  // 3rd
+          palette.blue_steel,   // 4th
+          palette.blue_slate,   // 5th
+          palette.blue_dark     // 6th
+        ],
         borderWidth: 0
       }]
     },
@@ -444,7 +512,7 @@
       responsive: true,
       maintainAspectRatio: false,
       plugins: { 
-        legend: { position: 'right', labels: { usePointStyle: true, color: '#F0E8D3', font: { size: 13 }, padding: 20 } }
+        legend: { position: 'right', labels: { usePointStyle: true, color: '#FFFFFF', font: { size: 13 }, padding: 20 } }
       }
     }
   });
